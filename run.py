@@ -24,7 +24,7 @@ def get_sales_data():
         print("Example: 10,20,30,40,50,60\n")
 
         data_str = input("Enter your data here: ")
-        
+
         sales_data = data_str.split(",")
         
         if validate_data(sales_data):
@@ -125,5 +125,25 @@ def main():
     update_worksheet(stock_data, "stock")
 
 print("Welcome to Love Sandwiches Data Automation.\n")
-main()
+stock_data = main()
 
+"""
+Code below for final challenge....
+"""
+
+def get_stock_values(data):
+    """
+    Retrieve headings values from stock worksheet
+    """
+    headings = SHEET.worksheet("stock").row_values(1)
+    market_stock = SHEET.worksheet("stock").get_all_values()
+    make_for_market = market_stock[-1]
+
+    make_stock_for_market = {headings[i]: int(make_for_market[i]) for i in range(len(headings))}
+
+    print("Make the following numbers of sandwiches for next market:\n")
+    return make_stock_for_market
+
+
+stock_values = get_stock_values(stock_data)
+print(stock_values)
